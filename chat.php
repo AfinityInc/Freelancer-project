@@ -88,6 +88,15 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                             </ul>
                         </div>
                     </div>
+                    
+                       <!-- /.row -->
+                <?php
+                $sql='select * from tbl_invoice';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
                     <!-- .chat-left-panel -->
                     <!-- .chat-right-panel -->
                     <div class="chat-right-aside">
@@ -201,9 +210,6 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2018 &copy;  Admin brought to you by AFFINITY INC. </footer>

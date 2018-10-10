@@ -39,7 +39,7 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Profile page</h4> </div>
+                        <h4 class="page-title">INvoice page</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
                         
@@ -50,7 +50,16 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                     </div>
                 </div>
                 <!-- /.row -->
+                <?php
+                $sql='select * from tbl_invoice';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
+                                               
                 <div class="row">
+                
                     <div class="col-md-12">
                         <div class="white-box printableArea">
                             <h3><b>INVOICE</b> <span class="pull-right">#5669626</span></h3>

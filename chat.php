@@ -88,6 +88,15 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                             </ul>
                         </div>
                     </div>
+                    
+                       <!-- /.row -->
+                <?php
+                $sql='select * from tbl_invoice';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
                     <!-- .chat-left-panel -->
                     <!-- .chat-right-panel -->
                     <div class="chat-right-aside">

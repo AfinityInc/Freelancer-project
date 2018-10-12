@@ -4,7 +4,9 @@
 /*Normal Color*/
 /*Border radius*/
 /*Preloader*/
-
+#scroll{
+	overflow: scroll;
+}
 #msform #submit {
     width: 100px;
     background: #2cabe3;

@@ -62,29 +62,46 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                 
                     <div class="col-md-12">
                         <div class="white-box printableArea">
-                            <h3><b>INVOICE</b> <span class="pull-right">#5669626</span></h3>
+                            <h3><b>INVOICE</b> <span class="pull-right"><?=$INVOICE_NUMBER?></span></h3>
                             <hr>
                             <div class="row">
+                             <?php
+                $sql='select * from tbl_buyer';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
                                 <div class="col-md-12">
                                     <div class="pull-left">
                                         <address>
-                                            <h3> &nbsp;<b class="text-danger">Elite Admin</b></h3>
-                                            <p class="text-muted m-l-5">E 104, Dharti-2,
-                                                <br/> Nr' Viswakarma Temple,
-                                                <br/> Talaja Road,
-                                                <br/> Bhavnagar - 364002</p>
+                                            <h3> &nbsp;<b class="text-danger"><?=$BUYER_NAME?></b></h3>
+                                            <p class="text-muted m-l-5"><?=$BUYER_ADDRESS?>,
+                                                </p>
                                         </address>
                                     </div>
+                                    <?php
+                $sql='select * from tbl_project';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
+                                    <?php
+                $sql='select * from tbl_seller';
+                $res=$conn->query($sql);
+                 $rec=$res->fetch_array();
+			   	extract($rec);
+               
+                ?>
                                     <div class="pull-right text-right">
                                         <address>
                                             <h3>To,</h3>
-                                            <h4 class="font-bold">Gaala & Sons,</h4>
-                                            <p class="text-muted m-l-30">E 104, Dharti-2,
-                                                <br/> Nr' Viswakarma Temple,
-                                                <br/> Talaja Road,
-                                                <br/> Bhavnagar - 364002</p>
-                                            <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> 23rd Jan 2016</p>
-                                            <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2016</p>
+                                            <h4 class="font-bold"><?=$SELLER_NAME?>,</h4>
+                                            <p class="text-muted m-l-30"><?=$ADDRESS?>,
+                                                </p>
+                                            <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> <?=$START_DATE?></p>
+                                            <p><b>Due Date :</b> <i class="fa fa-calendar"></i> <?=$END_DATE?></p>
                                         </address>
                                     </div>
                                 </div>

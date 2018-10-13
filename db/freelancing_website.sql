@@ -38,11 +38,16 @@ CREATE TABLE IF NOT EXISTS `tbl_buyer` (
   `BUYER_SKILLS` varchar(250) NOT NULL DEFAULT '0',
   `BUYER_DESCRIPTION` varchar(250) NOT NULL DEFAULT '0',
   `BUYER_IMAGE` varchar(250) NOT NULL DEFAULT '0',
+  `BUYER_ADDRESS` varchar(250) NOT NULL DEFAULT '0',
+  `BUYER_STATUS` varchar(250) NOT NULL DEFAULT 'offline',
   PRIMARY KEY (`BUYER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table freelancing_website.tbl_buyer: ~0 rows (approximately)
+-- Dumping data for table freelancing_website.tbl_buyer: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tbl_buyer` DISABLE KEYS */;
+REPLACE INTO `tbl_buyer` (`BUYER_ID`, `BUYER_NAME`, `BUYER_SKILLS`, `BUYER_DESCRIPTION`, `BUYER_IMAGE`, `BUYER_ADDRESS`, `BUYER_STATUS`) VALUES
+	(1, 'malik', 'ytdufy', 'rstydy', '21192039_829177647245170_2373096897927751996_n.jpg', 'China,Chunking street', 'offline'),
+	(2, 'sam', 'hs', 'hha', '10389692_1531141963804287_1745868577496834563_n.jpg', 'rdthf', 'offline');
 /*!40000 ALTER TABLE `tbl_buyer` ENABLE KEYS */;
 
 
@@ -50,18 +55,23 @@ CREATE TABLE IF NOT EXISTS `tbl_buyer` (
 DROP TABLE IF EXISTS `tbl_chat`;
 CREATE TABLE IF NOT EXISTS `tbl_chat` (
   `MESSAGE_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `USER_ID` int(11) unsigned NOT NULL DEFAULT '0',
-  `FROM` varchar(250) NOT NULL,
-  `TO` varchar(250) NOT NULL,
-  `SUBJECT` varchar(250) NOT NULL,
-  `MESSAGE_DETAILS` varchar(250) NOT NULL,
+  `USER_FROM` varchar(250) NOT NULL,
+  `USER_TO` varchar(250) NOT NULL,
+  `MESSAGE` varchar(250) NOT NULL,
   `MESSAGE_DATE` date NOT NULL,
   `MESSAGE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`MESSAGE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
--- Dumping data for table freelancing_website.tbl_chat: ~0 rows (approximately)
+-- Dumping data for table freelancing_website.tbl_chat: ~6 rows (approximately)
 /*!40000 ALTER TABLE `tbl_chat` DISABLE KEYS */;
+REPLACE INTO `tbl_chat` (`MESSAGE_ID`, `USER_FROM`, `USER_TO`, `MESSAGE`, `MESSAGE_DATE`, `MESSAGE_TIME`) VALUES
+	(4, 'arslan', 'sam', 'g', '0000-00-00', '2018-10-12 10:33:42'),
+	(9, 'arslan', 'malik', 'h', '0000-00-00', '2018-10-12 10:45:46'),
+	(11, 'sam', 'arslan', 'ahu', '0000-00-00', '2018-10-12 12:20:37'),
+	(12, 'malik', 'arslan', 'ggggggggggggggg', '0000-00-00', '2018-10-12 12:22:41'),
+	(17, 'malik', 'arslan', 'ok', '0000-00-00', '2018-10-12 16:29:17'),
+	(18, 'arslan', 'malik', 'heloooooooooooooooooooooooooooooooooooooooooooooooooooooooo', '0000-00-00', '2018-10-12 16:36:35');
 /*!40000 ALTER TABLE `tbl_chat` ENABLE KEYS */;
 
 
@@ -120,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   PRIMARY KEY (`PROJECT_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table freelancing_website.tbl_project: ~1 rows (approximately)
+-- Dumping data for table freelancing_website.tbl_project: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbl_project` DISABLE KEYS */;
 REPLACE INTO `tbl_project` (`PROJECT_ID`, `PROJECT_NAME`, `START_DATE`, `END_DATE`, `DESCRIPTION`, `SkillsRequired`, `Price`) VALUES
 	(1, 'fdgdfg', '2018-10-10', '2018-10-10', 'ldnxvldmv', 'KLNBXKV', 'L;MXLCV'),

@@ -2,6 +2,7 @@
 include_once('config/db.php');
 
 session_start();
+ $id= $_SESSION['name'];
 if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
 ?>
 
@@ -51,47 +52,49 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- .chat-row -->
+                <!-- .chat-row -->
                 <div class="chat-main-box">
                     <!-- .chat-left-panel -->
                     <div class="chat-left-aside">
                         <div class="open-panel"><i class="ti-angle-right"></i></div>
                         <div class="chat-left-inner">
+                        
                             <div class="form-material">
-                                <h1 class="form-control p-20">ONLINE CONTACTS</h1>
+                                <h1 class="form-control p-20">ALL CONTACTS</h1>
                             </div>
+                            <?php
+			$sql = "select * from tbl_buyer";
+	$res = $conn->query($sql);
+	while($rec = $res->fetch_array()){
+	extract($rec);
+	
+			
+			?>
                             <ul class="chatonline style-none ">
                                 <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                                    <a href="chat.php?name=<?=$BUYER_NAME?>"><img src="images/buyer/<?=$BUYER_IMAGE?>" alt="user-img" class="img-circle"> <span><?=$BUYER_NAME?> <small class="text-success"><?=$BUYER_STATUS?></small></span></a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="active"><img src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/arijit.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/govinda.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/john.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="plugins/images/users/pawandeep.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                                </li>
+                                <?php
+				if(isset($_GET['name'])){
+			  $reciever=$_GET['name'];
+			 $_SESSION['reciever']=$reciever;	
+			 }
+                            }
+                            ?>
                                 <li class="p-20"></li>
                             </ul>
+                            
                         </div>
                     </div>
                     
                        <!-- /.row -->
+                       <!-- /.row -->
                 <?php
-                $sql='select * from tbl_invoice';
+                function formatDate($date){
+	return date('g:i a', strtotime($date));
+}
+                
+                $sql="select * from tbl_seller where SELLER_ID='$id' ";
                 $res=$conn->query($sql);
                  $rec=$res->fetch_array();
 			   	extract($rec);
@@ -102,49 +105,74 @@ if(isset($_SESSION['loginstatus']) && $_SESSION['loginstatus'] == TRUE){
                     <div class="chat-right-aside">
                         <div class="chat-main-header">
                             <div class="p-20 b-b">
-                                <h3 class="box-title">Chat Message</h3> </div>
+                                <h3 class="box-title"><?=@$reciever?></h3> </div>
                         </div>
-                        <div class="chat-box">
-                            <ul class="chat-list slimscroll p-t-30">
+                        <div class="chat-box" >
+                        <?php 
+	
+	$sender=$_SESSION['name1'];
+@$reciever=$_SESSION['reciever'];
+	 $query = "select * from tbl_chat where USER_FROM='$sender' and USER_TO='$reciever'  ORDER BY MESSAGE_TIME ";
+	$run = $conn->query($query);
+	while($row = $run->fetch_array()){
+		
+	
+		?>
+                            <ul class="chat-list slimscroll p-t-31" id="scroll" >
                                 <li>
-                                    <div class="chat-image"> <img alt="male" src="plugins/images/users/ritesh.jpg"> </div>
-                                    <div class="chat-body">
+                                    <div class="chat-image"> <img alt="male" src="images/<?=$IMAGE?>"> </div>
+                                    <div class="chat-body" >
                                         <div class="chat-text">
-                                            <h4>Ritesh</h4>
-                                            <p> Hi, Genelia how are you and my son? </p> <b>10.00 am</b> </div>
+                                            <h4><?=$SELLER_NAME?></h4>
+                                            <p> <?=$row['MESSAGE']?> </p> <b><?= date('g:i a', strtotime($row['MESSAGE_TIME']))?></b> </div>
                                     </div>
                                 </li>
+                                <?php
+                                }
+                                ?>
+                               
+                                 <?php 
+	
+		
+	$sender=$_SESSION['name1'];
+@$reciever=$_SESSION['reciever'];
+	 $query = "select * from tbl_buyer where BUYER_NAME='$reciever' ";
+	$run = $conn->query($query);
+	$row1 = $run->fetch_array();
+		
+	
+		?>
+                                 <?php 
+	
+	$sender=$_SESSION['name1'];
+@$reciever=$_SESSION['reciever'];
+	 $query = "select * from tbl_chat where USER_FROM='$reciever' and USER_TO='$sender'  ORDER BY MESSAGE_TIME ";
+	$run = $conn->query($query);
+	while($row = $run->fetch_array()){
+		
+	
+		?>
                                 <li class="odd">
-                                    <div class="chat-image"> <img alt="Female" src="plugins/images/users/genu.jpg"> </div>
+                                    <div class="chat-image"> <img alt="Female" src="images/buyer/<?=$row1['BUYER_IMAGE']?>"> </div>
                                     <div class="chat-body">
                                         <div class="chat-text">
-                                            <h4>Genelia</h4>
-                                            <p> Hi, How are you Ritesh!!! We both are fine sweetu. </p> <b>10.03 am</b> </div>
+                                            <h4><?=@$reciever?></h4>
+                                            <p> <?=$row['MESSAGE']?> </p> <b><?=date('g:i a', strtotime($row['MESSAGE_TIME']))?></b> </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="chat-image"> <img alt="male" src="plugins/images/users/ritesh.jpg"> </div>
-                                    <div class="chat-body">
-                                        <div class="chat-text">
-                                            <h4>Ritesh</h4>
-                                            <p> Oh great!!! just enjoy you all day and keep rocking</p> <b>10.05 am</b> </div>
-                                    </div>
-                                </li>
-                                <li class="odd">
-                                    <div class="chat-image"> <img alt="Female" src="plugins/images/users/genu.jpg"> </div>
-                                    <div class="chat-body">
-                                        <div class="chat-text">
-                                            <h4>Genelia</h4>
-                                            <p> Your movei was superb and your acting is mindblowing </p> <b>10.07 am</b> </div>
-                                    </div>
-                                </li>
+                               <?php
+                                }
+                                ?>
                             </ul>
                             <div class="row send-chat-box">
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" placeholder="Type your message"></textarea>
+                                <form method="post" action="chat1.php">
+                                    <textarea class="form-control" name="msg" placeholder="Type your message"></textarea>
+                                    <input class="btn btn-success btn-block" name="sent"  type="hidden" value="<?=$reciever?>">	
                                     <div class="custom-send">
-                                        <button class="btn btn-danger btn-rounded" type="button">Send</button>
+                                        <button class="btn btn-danger btn-rounded" name="submit" type="submit">Send</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

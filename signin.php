@@ -12,6 +12,7 @@ if(mysqli_num_rows($res)==1){
 session_start();
 $_SESSION['loginstatus']=TRUE;
 $_SESSION['name']=$rec['SELLER_ID'];
+$_SESSION['name1']=$rec['SELLER_NAME'];
  header('location:dashboard.php?login=succesfully');
 
 }
